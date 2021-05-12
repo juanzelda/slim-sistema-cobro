@@ -1,0 +1,6 @@
+<?php
+
+$router->group(['prefix' => 'contribuyentes', 'middleware' => 'auth'], function () use ($router) {
+    $router->get('', 'PerfilController@getPerfiles');
+    $router->post('', 'PerfilController@createPerfil');
+});
