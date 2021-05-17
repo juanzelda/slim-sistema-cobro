@@ -2,12 +2,15 @@
 
 namespace App\Controllers;
 
-use App\DAO\PerfilDAO;
-use Illuminate\Http\Request;
-use Laravel\Lumen\Routing\Controller;
+use App\DAO\ContribuyenteDAO;
+use App\Util\AuthJWT;
+use App\Util\ApiResponse;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
-class ContribuyenteController extends Controller
+class ContribuyenteController
 {
+    use ApiResponse;
     /**
      * Create a new controller instance.
      *
@@ -17,21 +20,30 @@ class ContribuyenteController extends Controller
     {
     }
 
-    public function createPerfil(Request $req) //inicio de sesion
-
+    public function createContribuyente(Request $req, Response $res) //inicio de sesion
     {
-        $reglas = [
-            /*perfil*/
-            "perfil" => "required",
-            "descripcion" => "required",
-        ];
-        $this->validate($req, $reglas);
-        return PerfilDAO::createPerfil((object) $req->all());
+        $id = ContribuyenteDAO::createContribuyente((object)$req->getParsedBody());
+        return $this->successResponse($res, ["id" => $id], 201);
     }
 
-    public function getPerfiles()
+    public function getContribuyentes(Request $req, Response $res)
     {
-        return PerfilDAO::getPerfiles();
+        return $this->successResponse($res, ContribuyenteDAO::getContribuyentes());
     }
 
+    public function getContribuyente(Request $req, Response $res, array $args)
+    {
+        return $this->successResponse($res, ContribuyenteDAO::getContribuyente($args['id']));
+    }
+
+    public function updateContribuyente(Request $req, Response $res, array $args)
+    {
+        $ok = ContribuyenteDAO::updateContribuyente($args['id'], (object)$req->getParsedBody());
+        return $this->successResponse($res, $ok);
+    }
+
+    public function deleteContribuyente(Request $req, Response $res, array $args)
+    {
+        return $this->successResponse($res, ContribuyenteDAO::deleteContribuyente($args['id']));
+    }
 }

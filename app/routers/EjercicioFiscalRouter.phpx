@@ -1,6 +1,0 @@
-<?php
-
-$router->group(['prefix' => 'ejercicio-fiscal', 'middleware' => 'auth'], function () use ($router) {
-    $router->get('', 'PerfilController@getPerfiles');
-    $router->post('', 'PerfilController@createPerfil');
-});

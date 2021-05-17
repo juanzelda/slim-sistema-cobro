@@ -5,7 +5,7 @@ namespace App\DAO;
 use App\Util\DataBase as DB;
 use PDO;
 
-class ColaboradorDAO
+class PagoDAO
 {
 
     public function __construct()

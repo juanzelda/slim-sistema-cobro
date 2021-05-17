@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use App\Application\Handlers\HttpErrorHandler;
@@ -47,7 +48,7 @@ AppFactory::setContainer($container);
 //inicia aplicacion 
 $app = AppFactory::create();
 //se indica path de la aplicacion (ejemplo cuando esta en una subcarpeta de la raiz)
-$app->setBasePath('/mp-slim');
+$app->setBasePath('/mp-slim-git');
 
 $callableResolver = $app->getCallableResolver();
 

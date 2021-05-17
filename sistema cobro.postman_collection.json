@@ -1,0 +1,831 @@
+{
+	"info": {
+		"_postman_id": "527e837f-3840-43d0-b325-400bb91e5887",
+		"name": "sistema cobro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "seguridad",
+			"item": [
+				{
+					"name": "inicio session",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\":\"admin\",\r\n    \"password\":\"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}seguridad",
+							"host": [
+								"{{api_server}}seguridad"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "perfiles",
+			"item": [
+				{
+					"name": "lista de perfiles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}perfiles",
+							"host": [
+								"{{api_server}}perfiles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "perfil id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}perfiles/3",
+							"host": [
+								"{{api_server}}perfiles"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create perfil",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"perfil\":\"administrador\",\r\n    \"descripcion\":\"es el perfil maximo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}perfiles",
+							"host": [
+								"{{api_server}}perfiles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar perfil",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"perfil\":\"administrador 22\",\r\n    \"descripcion\":\"es el perfil maximo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}perfiles/4",
+							"host": [
+								"{{api_server}}perfiles"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar perfil",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}perfiles/4",
+							"host": [
+								"{{api_server}}perfiles"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "usuarios",
+			"item": [
+				{
+					"name": "lista de usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}usuarios",
+							"host": [
+								"{{api_server}}usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuario id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}usuarios/4",
+							"host": [
+								"{{api_server}}usuarios"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin2\",\r\n    \"password\":\"admin2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}usuarios",
+							"host": [
+								"{{api_server}}usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"perfi\",\r\n    \"password\":\"perfi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}usuarios/6",
+							"host": [
+								"{{api_server}}usuarios"
+							],
+							"path": [
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}usuarios/6",
+							"host": [
+								"{{api_server}}usuarios"
+							],
+							"path": [
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "conceptos",
+			"item": [
+				{
+					"name": "conceptos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}conceptos",
+							"host": [
+								"{{api_server}}conceptos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "concepto id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}conceptos/1",
+							"host": [
+								"{{api_server}}conceptos"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create conceptos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clave\":6,\r\n    \"concepto\":\"vaso plastico\",\r\n    \"importe\":300\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}conceptos",
+							"host": [
+								"{{api_server}}conceptos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar conceptos",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clave\":6,\r\n    \"concepto\":\"Vaso de Plastico\",\r\n    \"importe\":35\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}conceptos/6",
+							"host": [
+								"{{api_server}}conceptos"
+							],
+							"path": [
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar concepto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}conceptos/1",
+							"host": [
+								"{{api_server}}conceptos"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "colaborador",
+			"item": [
+				{
+					"name": "colaboradores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}colaboradores",
+							"host": [
+								"{{api_server}}colaboradores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "colaborador id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}colaboradores/1",
+							"host": [
+								"{{api_server}}colaboradores"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create colaborador",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nip\":\"0001\",\r\n    \"rfc\":\"ROPL890311I87\",\r\n    \"puesto\":\"programador\",\r\n    \"email\":\"ejemplo@gmail.com\",\r\n    \"foto\":\"ruta imagen\",\r\n    \"nombre\":\"JOSE LEON\",\r\n    \"paterno\":\"RODRIGUEZ\",\r\n    \"materno\":\"PIÑA\",\r\n    \"genero\":1,\r\n    \"fecha_nac\":\"1989.03-11\",\r\n    \"calle\":\"VALLE MESOREA\",\r\n    \"colonia\":\"VALLE DE SAN JOSE\",\r\n    \"num_ext\":\"206\",\r\n    \"num_int\":\"\",\r\n    \"ciudad\":\"LEON\",\r\n    \"estado\":\"GUANAJUATO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}colaboradores",
+							"host": [
+								"{{api_server}}colaboradores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar colaborador",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nip\":\"0001\",\r\n    \"rfc\":\"ROPL890311I88\",\r\n    \"puesto\":\"programador\",\r\n    \"email\":\"ejemplo@gmail.com\",\r\n    \"foto\":\"ruta imagen\",\r\n    \"nombre\":\"JOSE LEON\",\r\n    \"paterno\":\"RODRIGUEZ\",\r\n    \"materno\":\"PIÑA\",\r\n    \"genero\":1,\r\n    \"fecha_nac\":\"1989.03-11\",\r\n    \"calle\":\"VALLE MESOREAm\",\r\n    \"colonia\":\"VALLE DE SAN JOSE\",\r\n    \"num_ext\":\"206\",\r\n    \"num_int\":\"\",\r\n    \"ciudad\":\"LEON\",\r\n    \"estado\":\"GUANAJUATO\",\r\n    \"id_persona\":7,\r\n    \"id_direccion\":11\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}colaboradores/3",
+							"host": [
+								"{{api_server}}colaboradores"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar colaborador",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}colaboradores/1",
+							"host": [
+								"{{api_server}}colaboradores"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "contribuyente",
+			"item": [
+				{
+					"name": "contribuyentes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}contribuyentes",
+							"host": [
+								"{{api_server}}contribuyentes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contribuyente id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}contribuyentes/1",
+							"host": [
+								"{{api_server}}contribuyentes"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create contribuyente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ejemplo@gmail.com\",\r\n    \"telefono\":\"ruta imagen\",\r\n    \"nombre\":\"JOSE LEON\",\r\n    \"paterno\":\"RODRIGUEZ\",\r\n    \"materno\":\"PIÑA\",\r\n    \"genero\":1,\r\n    \"fecha_nac\":\"1989.03-11\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}contribuyentes",
+							"host": [
+								"{{api_server}}contribuyentes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar contribuyentes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ejemplo@gmail.com\",\r\n    \"telefono\":\"ruta imagen\",\r\n    \"nombre\":\"JOSE LEON\",\r\n    \"paterno\":\"RODRIGUEZ\",\r\n    \"materno\":\"PIÑA\",\r\n    \"genero\":1,\r\n    \"fecha_nac\":\"1989.03-11\",\r\n    \"id_persona\":9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}contribuyentes/1",
+							"host": [
+								"{{api_server}}contribuyentes"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar contribuyente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}contribuyentes/1",
+							"host": [
+								"{{api_server}}contribuyentes"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ejercicio fiscal",
+			"item": [
+				{
+					"name": "ejercicios fiscales",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}ejercicio-fiscal",
+							"host": [
+								"{{api_server}}ejercicio-fiscal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ejercicio fiscal id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}ejercicio-fiscal/1",
+							"host": [
+								"{{api_server}}ejercicio-fiscal"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create ejercicio fiscal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"periodo\":\"2020-2021\",\r\n    \"fecha_inicio\":\"2020-01-01\",\r\n    \"fecha_fin\":\"2021-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}ejercicio-fiscal",
+							"host": [
+								"{{api_server}}ejercicio-fiscal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar ejercicio fiscal",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"periodo\":\"2020-2021 mod\",\r\n    \"fecha_inicio\":\"2020-01-01\",\r\n    \"fecha_fin\":\"2021-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}ejercicio-fiscal/1",
+							"host": [
+								"{{api_server}}ejercicio-fiscal"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar ejercicio fiscal",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}ejercicio-fiscal/1",
+							"host": [
+								"{{api_server}}ejercicio-fiscal"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "proceso de caja",
+			"item": [
+				{
+					"name": "obener todos los recibos del contribuyente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}recibos/1",
+							"host": [
+								"{{api_server}}recibos"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detalle de un recibo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}ejercicio-fiscal/1",
+							"host": [
+								"{{api_server}}ejercicio-fiscal"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generar recibo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_contribuyente\":1,\r\n    \"cargos\":[\r\n        {\r\n            \"id_concepto\":4,\r\n            \"clave\":4,\r\n            \"concepto\":\"rollo plastico\",\r\n            \"precio_unitario\":200,\r\n            \"cantidad\":1,\r\n            \"total\":200\r\n        },\r\n        {\r\n            \"id_concepto\":5,\r\n            \"clave\":5,\r\n            \"concepto\":\"rollo aluminio\",\r\n            \"precio_unitario\":250,\r\n            \"cantidad\":1,\r\n            \"total\":250\r\n        },\r\n        {\r\n            \"id_concepto\":6,\r\n            \"clave\":6,\r\n            \"concepto\":\"vaso de plastico\",\r\n            \"precio_unitario\":35,\r\n            \"cantidad\":2,\r\n            \"total\":70\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}recibos",
+							"host": [
+								"{{api_server}}recibos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar recibo al contribuyente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}ejercicio-fiscal/1",
+							"host": [
+								"{{api_server}}ejercicio-fiscal"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cargos",
+			"item": [
+				{
+					"name": "agregar cargo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"periodo\":\"2020-2021\",\r\n    \"fecha_inicio\":\"2020-01-01\",\r\n    \"fecha_fin\":\"2021-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}ejercicio-fiscal",
+							"host": [
+								"{{api_server}}ejercicio-fiscal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar cargo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"periodo\":\"2020-2021 mod\",\r\n    \"fecha_inicio\":\"2020-01-01\",\r\n    \"fecha_fin\":\"2021-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}ejercicio-fiscal/1",
+							"host": [
+								"{{api_server}}ejercicio-fiscal"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar o remover cargo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_server}}ejercicio-fiscal/1",
+							"host": [
+								"{{api_server}}ejercicio-fiscal"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pagos o abonos",
+			"item": [
+				{
+					"name": "agregar pago o abono al recibo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"periodo\":\"2020-2021\",\r\n    \"fecha_inicio\":\"2020-01-01\",\r\n    \"fecha_fin\":\"2021-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}ejercicio-fiscal",
+							"host": [
+								"{{api_server}}ejercicio-fiscal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "descuentos",
+			"item": []
+		}
+	]
+}
