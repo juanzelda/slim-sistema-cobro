@@ -1,16 +1,15 @@
 <?php
 
-use App\Controllers\ColaboradorController;
+use App\Controllers\CargoController;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 return function (Group $groupApi) {
 
-    $groupApi->group('/colaboradores', function (Group $group) {
+    $groupApi->group('/cargos', function (Group $group) {
 
-        $group->get('', ColaboradorController::class . ':getColaboradores');
-        $group->get('/{id:[0-9]+}', ColaboradorController::class . ':getColaborador');
-        $group->post('', ColaboradorController::class . ':createColaborador');
-        $group->put('/{id:[0-9]+}', ColaboradorController::class . ':updateColaborador');
-        $group->delete('/{id:[0-9]+}', ColaboradorController::class . ':deleteColaborador');
+        $group->get('/{id:[0-9]+}', CargoController::class . ':getCargos');
+        $group->post('/{id:[0-9]+}', CargoController::class . ':addCargo');
+        $group->put('/{id:[0-9]+}', CargoController::class . ':updateCargo');
+        $group->delete('/{id:[0-9]+}', CargoController::class . ':deleteCargo');
     });
 };

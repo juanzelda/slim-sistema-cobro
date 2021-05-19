@@ -12,47 +12,31 @@ class PagoDAO
     {
     }
 
-    public static function createColaborador($p)
+    public static function addPago($id,$p)
     {
 
         try {
             $db = DB::getConnection();
-            $db->beginTransaction();
 
-            $stm = $db->prepare("INSERT INTO personas(nombre,paterno,materno,genero,fecha_nacimiento) VALUES(?,?,?,?,?)");
-            $stm->bindParam(1, $p->nombre);
-            $stm->bindParam(2, $p->paterno);
-            $stm->bindParam(3, $p->materno);
-            $stm->bindParam(4, $p->genero);
-            $stm->bindParam(5, $p->fecha_nac);
+            $stm = $db->prepare("SELECT (SELECT SUM(total) FROM cargo WHERE id_recibo=:id_recibo)-(SELECT IFNULL(SUM(monto),0) FROM pago WHERE id_recibo=:id_recibo) AS total");
+            $stm->bindParam(':id_recibo', $id);
             $stm->execute();
-            $id_persona = $db->lastInsertId();
+            $saldo=$stm->fetch(PDO::FETCH_ASSOC);
 
-            $stm = $db->prepare("INSERT INTO direccion(id_persona,calle,colonia,num_ext,num_int,ciudad,estado) VALUES(?,?,?,?,?,?,?)");
-            $stm->bindParam(1, $id_persona);
-            $stm->bindParam(2, $p->calle);
-            $stm->bindParam(3, $p->colonia);
-            $stm->bindParam(4, $p->num_ext);
-            $stm->bindParam(5, $p->num_int);
-            $stm->bindParam(6, $p->ciudad);
-            $stm->bindParam(7, $p->estado);
-            $stm->execute();
-            $id_direccion = $db->lastInsertId();
-
-            $stm = $db->prepare("INSERT INTO colaborador(id_persona,nip,rfc,puesto,email,foto) VALUES(?,?,?,?,?,?)");
-            $stm->bindParam(1, $id_persona);
-            $stm->bindParam(2, $p->nip);
-            $stm->bindParam(3, $p->rfc);
-            $stm->bindParam(4, $p->puesto);
-            $stm->bindParam(5, $p->email);
-            $stm->bindParam(6, $p->foto);
-            $stm->execute();
-            $id_colaborador = $db->lastInsertId();
-
-            $db->commit();
-            return ["colaborador" => $id_colaborador, "persona" => $id_persona, "direccion" => $id_direccion];
+            if($saldo!=null && $p->monto<=$saldo['total']){
+               $stm = $db->prepare("INSERT INTO pago(id_recibo,cajero_cobro,monto,forma_pago) VALUES(?,?,?,?);");
+               $stm->bindParam(1, $id);
+               $stm->bindParam(2, $p->cajero);
+               $stm->bindParam(3, $p->monto);
+               $stm->bindParam(4, $p->forma_pago);
+               $stm->execute();
+               $id_pago = $db->lastInsertId();
+               return $id_pago;
+            }
+            else{
+                return 'no se aplica pago';
+            }
         } catch (\Throwable $th) {
-            $db->rollBack();
             return ["ErrorApi" => $th->getMessage()];
         }
     }

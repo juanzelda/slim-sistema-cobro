@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\DAO\ColaboradorDAO;
+use App\DAO\CargoDAO;
 use App\Util\AuthJWT;
 use App\Util\ApiResponse;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -20,30 +20,25 @@ class CargoController
     {
     }
 
-    public function createColaborador(Request $req, Response $res) //inicio de sesion
+    public function addCargo(Request $req, Response $res,$args)
     {
-        $id = ColaboradorDAO::createColaborador((object)$req->getParsedBody());
+        $id = CargoDAO::addCargo($args['id'],(object)$req->getParsedBody());
         return $this->successResponse($res, ["id" => $id], 201);
     }
 
-    public function getColaboradores(Request $req, Response $res)
+    public function getCargos(Request $req, Response $res,$args)
     {
-        return $this->successResponse($res, ColaboradorDAO::getColaboradores());
+        return $this->successResponse($res, CargoDAO::getCargos($args['id']));
     }
 
-    public function getColaborador(Request $req, Response $res, array $args)
+    public function updateCargo(Request $req, Response $res, array $args)
     {
-        return $this->successResponse($res, ColaboradorDAO::getColaborador($args['id']));
-    }
-
-    public function updateColaborador(Request $req, Response $res, array $args)
-    {
-        $ok = ColaboradorDAO::updateColaborador($args['id'], (object)$req->getParsedBody());
+        $ok = CargoDAO::updateCargo($args['id'], (object)$req->getParsedBody());
         return $this->successResponse($res, $ok);
     }
 
-    public function deleteColaborador(Request $req, Response $res, array $args)
+    public function deleteCargo(Request $req, Response $res, array $args)
     {
-        return $this->successResponse($res, ColaboradorDAO::deleteColaborador($args['id']));
+        return $this->successResponse($res, CargoDAO::deleteCargo($args['id']));
     }
 }

@@ -52,6 +52,10 @@ class ReciboDAO
 
     public static function getRecibos()
     {
+        /**SELECT recibo.folio,recibo.cajero,recibo.fecha_creacion,SUM(cargo.total),ifnull(SUM(pago.monto),0),SUM(cargo.total)-ifnull(SUM(pago.monto),0) AS total FROM recibo
+INNER JOIN cargo ON recibo.id=cargo.id_recibo
+LEFT JOIN pago ON recibo.id=pago.id_recibo
+GROUP BY recibo.id */
         try {
             $db = DB::getConnection();
             $stm = $db->prepare(
