@@ -59,8 +59,11 @@ GROUP BY recibo.id */
         try {
             $db = DB::getConnection();
             $stm = $db->prepare(
-                "SELECT folio,fecha_creacion FROM recibo
-                 INNER JOIN usuarios ON recibo.cajero=usuarios.id"
+                "SELECT folio,fecha_creacion,SUM(cargo.total) AS saldo,group_concat(cargo.total),SUM(cargo.total)-IFNULL(SUM(pago.monto),0) AS saldo_pendiente FROM recibo
+                 INNER JOIN cargo ON recibo.id=cargo.id_recibo
+                 inner JOIN pago ON recibo.id=pago.id_recibo
+                 INNER JOIN usuarios ON recibo.cajero=usuarios.id
+                 GROUP BY recibo.id,cargo.id,pago.id"
             );
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_ASSOC);
