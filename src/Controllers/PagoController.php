@@ -25,24 +25,13 @@ class PagoController
         return $this->successResponse($res, $id, 201);
     }
 
-    public function getColaboradores(Request $req, Response $res)
+    public function getPagos(Request $req, Response $res,array $args)
     {
-        return $this->successResponse($res, PagoDAO::getColaboradores());
+        return $this->successResponse($res, PagoDAO::getPagos($args['id']));
     }
 
-    public function getColaborador(Request $req, Response $res, array $args)
+    public function eliminarPago(Request $req, Response $res, array $args)
     {
-        return $this->successResponse($res, PagoDAO::getColaborador($args['id']));
-    }
-
-    public function updateColaborador(Request $req, Response $res, array $args)
-    {
-        $ok = PagoDAO::updateColaborador($args['id'], (object)$req->getParsedBody());
-        return $this->successResponse($res, $ok);
-    }
-
-    public function deleteColaborador(Request $req, Response $res, array $args)
-    {
-        return $this->successResponse($res, PagoDAO::deleteColaborador($args['id']));
+        return $this->successResponse($res, PagoDAO::eliminarPago($args['id']));
     }
 }
