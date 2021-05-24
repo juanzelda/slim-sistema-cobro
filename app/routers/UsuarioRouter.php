@@ -12,5 +12,6 @@ return function (Group $groupApi) {
         $group->post('', UsuarioController::class . ':createUser');
         $group->put('/{id:[0-9]+}', UsuarioController::class . ':updateUsuario');
         $group->delete('/{id:[0-9]+}', UsuarioController::class . ':deleteUsuario');
+        $group->post('/{id:[0-9]+}/modulos', UsuarioController::class . ':addModulos');
     });
 };

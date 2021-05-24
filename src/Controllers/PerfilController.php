@@ -47,4 +47,10 @@ class PerfilController
     {
         return $this->successResponse($res, PerfilDAO::deletePerfil($args['id']));
     }
+
+    public function addModulos(Request $req, Response $res, array $args) //inicio de sesion
+    {
+        $ok = PerfilDAO::addModulos($args["id"], (object)$req->getParsedBody());
+        return $this->successResponse($res, $ok);
+    }
 }

@@ -87,7 +87,29 @@ class UsuarioDAO
         }
     }
 
-    public static function addPerfil($id)
+    public static function addModulos($id_usuario, $modulos)
     {
+        $db = DB::getConnection();
+        try {
+            $db->beginTransaction();
+
+            $stm = $db->prepare("DELETE FROM usuario_modulo WHERE id_usuario=?");
+            $stm->bindParam(1, $id_usuario, PDO::PARAM_INT);
+            $stm->execute();
+
+            $stm = $db->prepare("INSERT INTO usuario_modulo(id_usuario,id_modulo) VALUES(:usuario,:modulo)");
+
+            foreach ($modulos as $id_modulo) {
+                $stm->bindParam(":usuario", $id_usuario, PDO::PARAM_INT);
+                $stm->bindParam(":modulo", $id_modulo, PDO::PARAM_INT);
+                $stm->execute();
+            }
+
+            $db->commit();
+            return 1;
+        } catch (\Throwable $th) {
+            $db->rollBack();
+            return ["ErrorApi" => $th->getMessage()];
+        }
     }
 }

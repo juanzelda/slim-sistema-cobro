@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Util;
+
 use Firebase\JWT\JWT;
 
 
@@ -11,7 +13,7 @@ class AuthJWT
 
     private static function getKey()
     {
-        self::$secret_key="ClaveSecreta";
+        self::$secret_key = "ClaveSecreta";
     }
 
     public static function SignIn($data)
@@ -20,7 +22,7 @@ class AuthJWT
         $time = time();
         $token = array(
             'iat' => $time, // Tiempo que inició el token
-            'exp' => $time + (60*60),// Tiempo que expirará el token (+1 hora)
+            'exp' => $time + (60 * 60), // Tiempo que expirará el token (+1 hora)
             'aud' => self::Aud(),
             'data' => $data
         );
@@ -31,8 +33,7 @@ class AuthJWT
     public static function Check($token)
     {
         self::getKey();
-        if(empty($token))
-        {
+        if (empty($token)) {
             throw new \Exception("Invalid token supplied.");
         }
 
@@ -42,8 +43,7 @@ class AuthJWT
             self::$encrypt
         );
 
-        if($decode->aud !== self::Aud())
-        {
+        if ($decode->aud !== self::Aud()) {
             throw new \Exception("Invalid user logged in.");
         }
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\PerfilController;
+use App\Middleware\SessionMiddleware;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 return function (Group $groupApi) {
@@ -12,5 +13,6 @@ return function (Group $groupApi) {
         $group->post('', PerfilController::class . ':createPerfil');
         $group->put('/{id:[0-9]+}', PerfilController::class . ':updatePerfil');
         $group->delete('/{id:[0-9]+}', PerfilController::class . ':deletePerfil');
-    });
+        $group->post('/{id:[0-9]+}/modulos', PerfilController::class . ':addModulos');
+    })->add(new SessionMiddleware);
 };

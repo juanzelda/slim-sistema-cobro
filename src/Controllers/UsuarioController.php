@@ -47,8 +47,9 @@ class UsuarioController
         return $this->successResponse($res, UsuarioDAO::deleteUsuario($args['id']));
     }
 
-    public function addPerfil($id, Request $req)
+    public function addModulos(Request $req, Response $res, array $args) //inicio de sesion
     {
-        //return UsuarioDAO::addPerfil($id, (object)$req->all());
+        $ok = UsuarioDAO::addModulos($args["id"], (object)$req->getParsedBody());
+        return $this->successResponse($res, $ok);
     }
 }

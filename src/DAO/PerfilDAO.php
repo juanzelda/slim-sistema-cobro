@@ -81,4 +81,30 @@ class PerfilDAO
          return ["ErrorApi" => $th->getMessage()];
       }
    }
+
+   public static function addModulos($id_perfil, $modulos)
+   {
+      $db = DB::getConnection();
+      try {
+         $db->beginTransaction();
+
+         $stm = $db->prepare("DELETE FROM modulo_perfil WHERE id_perfil=?");
+         $stm->bindParam(1, $id_perfil, PDO::PARAM_INT);
+         $stm->execute();
+
+         $stm = $db->prepare("INSERT INTO modulo_perfil(id_perfil,id_modulo) VALUES(:perfil,:modulo)");
+
+         foreach ($modulos as $id_modulo) {
+            $stm->bindParam(":perfil", $id_perfil, PDO::PARAM_INT);
+            $stm->bindParam(":modulo", $id_modulo, PDO::PARAM_INT);
+            $stm->execute();
+         }
+
+         $db->commit();
+         return 1;
+      } catch (\Throwable $th) {
+         $db->rollBack();
+         return ["ErrorApi" => $th->getMessage()];
+      }
+   }
 }
