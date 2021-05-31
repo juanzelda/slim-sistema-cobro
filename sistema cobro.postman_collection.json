@@ -30,6 +30,29 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "build menu",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MjE4MjY4ODIsImV4cCI6MTYyMTgzMDQ4MiwiYXVkIjoiZDY2YWMzNGNkZGVjYjNlMzM2MDI0MGJhZDE0YjMxYjc1MmY2N2E3MyIsImRhdGEiOnsiaWQiOiI0IiwicGVyZmlsIjoiMyIsImVtcGxlYWRvIjoiMSIsIm5pcCI6IjAwMDEifX0.SEVbBVfy-JESgItLEMcGyhd7a-gF6CkVngGkQxqSUPk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_server}}seguridad/menu",
+							"host": [
+								"{{api_server}}seguridad"
+							],
+							"path": [
+								"menu"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -85,6 +108,63 @@
 							"raw": "{{api_server}}perfiles",
 							"host": [
 								"{{api_server}}perfiles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get modulos del perfil",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MjE4MjAyMzgsImV4cCI6MTYyMTgyMzgzOCwiYXVkIjoiZDY2YWMzNGNkZGVjYjNlMzM2MDI0MGJhZDE0YjMxYjc1MmY2N2E3MyIsImRhdGEiOnsiaWQiOiI0IiwicGVyZmlsIjoiMyIsImVtcGxlYWRvIjoiMSIsIm5pcCI6IjAwMDEifX0.NBCZuow35PSO5AGkE9iAlgIIGCBW7dyfeLwAxOz0SpQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_server}}perfiles/3/modulos",
+							"host": [
+								"{{api_server}}perfiles"
+							],
+							"path": [
+								"3",
+								"modulos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add modulos al perfil",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MjE4MjAyMzgsImV4cCI6MTYyMTgyMzgzOCwiYXVkIjoiZDY2YWMzNGNkZGVjYjNlMzM2MDI0MGJhZDE0YjMxYjc1MmY2N2E3MyIsImRhdGEiOnsiaWQiOiI0IiwicGVyZmlsIjoiMyIsImVtcGxlYWRvIjoiMSIsIm5pcCI6IjAwMDEifX0.NBCZuow35PSO5AGkE9iAlgIIGCBW7dyfeLwAxOz0SpQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[1,2,3,4,5]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}perfiles/3/modulos",
+							"host": [
+								"{{api_server}}perfiles"
+							],
+							"path": [
+								"3",
+								"modulos"
 							]
 						}
 					},
@@ -187,6 +267,33 @@
 							"raw": "{{api_server}}usuarios",
 							"host": [
 								"{{api_server}}usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add modulo por usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[1,2,3]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_server}}usuarios/4/modulos",
+							"host": [
+								"{{api_server}}usuarios"
+							],
+							"path": [
+								"4",
+								"modulos"
 							]
 						}
 					},
