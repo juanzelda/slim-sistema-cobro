@@ -14,14 +14,18 @@ class PerfilDAO
    {
    }
 
+   public static function Mayus($data)
+   {
+      return  mb_strtoupper(trim($data), 'utf-8');
+   }
 
    public static function createPerfil($p)
    {
       try {
          $db = DB::getConnection();
          $stm = $db->prepare("INSERT INTO perfil(perfil,descripcion) VALUES(?,?)");
-         $stm->bindParam(1, $p->perfil, PDO::PARAM_STR);
-         $stm->bindParam(2, $p->descripcion, PDO::PARAM_STR);
+         $stm->bindValue(1, self::Mayus($p->perfil), PDO::PARAM_STR);
+         $stm->bindValue(2, self::Mayus($p->descripcion), PDO::PARAM_STR);
          $stm->execute();
          return $db->lastInsertId();
       } catch (\Throwable $th) {
@@ -33,7 +37,7 @@ class PerfilDAO
    {
       try {
          $db = DB::getConnection();
-         $stm = $db->prepare("SELECT * FROM perfil");
+         $stm = $db->prepare("SELECT id,perfil,descripcion,estatus FROM perfil");
          $stm->execute();
          return $stm->fetchAll(PDO::FETCH_ASSOC);
       } catch (\Throwable $th) {
@@ -59,8 +63,8 @@ class PerfilDAO
       try {
          $db = DB::getConnection();
          $stm = $db->prepare("UPDATE perfil SET perfil=?,descripcion=? WHERE id=?");
-         $stm->bindParam(1, $p->perfil);
-         $stm->bindParam(2, $p->descripcion);
+         $stm->bindValue(1, self::Mayus($p->perfil));
+         $stm->bindValue(2, self::Mayus($p->descripcion));
          $stm->bindParam(3, $id);
          $stm->execute();
          return $stm->rowCount();
@@ -104,6 +108,20 @@ class PerfilDAO
          return 1;
       } catch (\Throwable $th) {
          $db->rollBack();
+         return ["ErrorApi" => $th->getMessage()];
+      }
+   }
+
+   public static function getModulos($id_perfil)
+   {
+      $db = DB::getConnection();
+      try {
+         $stm = $db->prepare("SELECT id,modulo,IFNULL(modulo_perfil.id_modulo,0) AS modulo_exist FROM modulo 
+LEFT JOIN modulo_perfil ON modulo.id=modulo_perfil.id_modulo AND modulo_perfil.id_perfil=?");
+         $stm->bindParam(1, $id_perfil, PDO::PARAM_INT);
+         $stm->execute();
+         return $stm->fetchAll(PDO::FETCH_ASSOC);
+      } catch (\Throwable $th) {
          return ["ErrorApi" => $th->getMessage()];
       }
    }

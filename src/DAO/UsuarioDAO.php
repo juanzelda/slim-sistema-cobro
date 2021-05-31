@@ -33,10 +33,11 @@ class UsuarioDAO
     {
         try {
             $db = DB::getConnection();
-            $stm = $db->prepare("SELECT usuarios.id,username,GROUP_CONCAT(perfil.perfil) AS perfiles 
+            $stm = $db->prepare("SELECT nombre,paterno,materno,usuarios.id,username,perfil.perfil 
             FROM usuarios 
-            INNER JOIN usuario_perfil ON usuarios.id=usuario_perfil.id_usuario
-            INNER JOIN perfil ON usuario_perfil.id_perfil=perfil.id GROUP BY usuarios.id");
+            INNER JOIN perfil ON perfil.id=usuarios.id_perfil
+            INNER JOIN colaborador ON colaborador.id=usuarios.id_colaborador
+            INNER JOIN personas ON personas.id=colaborador.id_persona");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Throwable $th) {

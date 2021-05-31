@@ -13,6 +13,11 @@ class ConceptoDAO
     {
     }
 
+    public static function Mayus($data)
+    {
+        return  mb_strtoupper($data, 'utf-8');
+    }
+
     public static function createConcepto($p)
     {
 
@@ -20,12 +25,13 @@ class ConceptoDAO
             $db = DB::getConnection();
             $stm = $db->prepare("INSERT INTO concepto(clave,concepto,importe) VALUES(?,?,?)");
             $stm->bindParam(1, $p->clave);
-            $stm->bindParam(2, $p->concepto);
-            $stm->bindParam(3, $p->importe);
+            $stm->bindValue(2, self::Mayus($p->concepto));
+            $stm->bindValue(3, round($p->importe, 2));
             $stm->execute();
             return $db->lastInsertId();
         } catch (\Throwable $th) {
             return ["ErrorApi" => $th->getMessage()];
+            return 0;
         }
     }
 
@@ -33,7 +39,7 @@ class ConceptoDAO
     {
         try {
             $db = DB::getConnection();
-            $stm = $db->prepare("SELECT * FROM concepto");
+            $stm = $db->prepare("SELECT id,clave,concepto,importe,estatus FROM concepto");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Throwable $th) {
@@ -62,8 +68,8 @@ class ConceptoDAO
             $db = DB::getConnection();
             $stm = $db->prepare("UPDATE concepto SET clave=?,concepto=?,importe=? WHERE id=?");
             $stm->bindParam(1, $p->clave);
-            $stm->bindParam(2, $p->concepto);
-            $stm->bindParam(3, $p->importe);
+            $stm->bindValue(2, self::Mayus($p->concepto));
+            $stm->bindValue(3, round($p->importe, 2));
             $stm->bindParam(4, $id);
             $stm->execute();
             return $stm->rowCount();

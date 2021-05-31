@@ -53,4 +53,9 @@ class PerfilController
         $ok = PerfilDAO::addModulos($args["id"], (object)$req->getParsedBody());
         return $this->successResponse($res, $ok);
     }
+
+    public function getModulos(Request $req, Response $res, array $args)
+    {
+        return $this->successResponse($res, PerfilDAO::getModulos($args['id']));
+    }
 }

@@ -14,5 +14,6 @@ return function (Group $groupApi) {
         $group->put('/{id:[0-9]+}', PerfilController::class . ':updatePerfil');
         $group->delete('/{id:[0-9]+}', PerfilController::class . ':deletePerfil');
         $group->post('/{id:[0-9]+}/modulos', PerfilController::class . ':addModulos');
+        $group->get('/{id:[0-9]+}/modulos', PerfilController::class . ':getModulos');
     })->add(new SessionMiddleware);
 };
