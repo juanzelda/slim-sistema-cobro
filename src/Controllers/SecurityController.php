@@ -21,7 +21,6 @@ class SecurityController
     {
 
         $data = SecurityDAO::initSesion((object) $request->getParsedBody());
-        //return $this->successResponse($response, $data->materno);
 
         if ($data != null) {
             $data = (object)$data;
@@ -41,7 +40,7 @@ class SecurityController
             ];
             return $this->successResponse($response, ["token" => AuthJWT::SignIn($token), "data" => $dataResponse]);
         } else {
-            return "Error No Hay Usuario";
+            return $this->successResponse($response, ["data" => "No Existe el usuario"]);
         }
     }
 

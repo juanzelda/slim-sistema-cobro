@@ -19,9 +19,11 @@ class UsuarioDAO
     {
         try {
             $db = DB::getConnection();
-            $stm = $db->prepare("INSERT INTO usuarios(username,password) VALUES(?,?)");
-            $stm->bindParam(1, $p->username);
-            $stm->bindParam(2, $p->password);
+            $stm = $db->prepare("INSERT INTO usuarios(id_colaborador,id_perfil,usuario,contrasena) VALUES(?,?,?,?)");
+            $stm->bindParam(1, $p->id_colaborador);
+            $stm->bindParam(2, $p->id_perfil);
+            $stm->bindParam(3, $p->username);
+            $stm->bindParam(4, $p->password);
             $stm->execute();
             return $db->lastInsertId();
         } catch (\Throwable $th) {
@@ -33,7 +35,7 @@ class UsuarioDAO
     {
         try {
             $db = DB::getConnection();
-            $stm = $db->prepare("SELECT nombre,paterno,materno,usuarios.id,username,perfil.perfil 
+            $stm = $db->prepare("SELECT nombre,paterno,materno,usuarios.id,usuario,perfil.perfil 
             FROM usuarios 
             INNER JOIN perfil ON perfil.id=usuarios.id_perfil
             INNER JOIN colaborador ON colaborador.id=usuarios.id_colaborador
@@ -48,10 +50,11 @@ class UsuarioDAO
     {
         try {
             $db = DB::getConnection();
-            $stm = $db->prepare("SELECT usuarios.id,username,GROUP_CONCAT(perfil.perfil) AS perfiles 
+            $stm = $db->prepare("SELECT nombre,paterno,materno,usuarios.id,usuario,perfil.perfil 
             FROM usuarios 
-            INNER JOIN usuario_perfil ON usuarios.id=usuario_perfil.id_usuario
-            INNER JOIN perfil ON usuario_perfil.id_perfil=perfil.id WHERE usuarios.id=? GROUP BY usuarios.id");
+            INNER JOIN perfil ON perfil.id=usuarios.id_perfil
+            INNER JOIN colaborador ON colaborador.id=usuarios.id_colaborador
+            INNER JOIN personas ON personas.id=colaborador.id_persona WHERE usuarios.id=?");
             $stm->bindParam(1, $id);
             $stm->execute();
             return $stm->fetch(PDO::FETCH_ASSOC);
@@ -64,8 +67,8 @@ class UsuarioDAO
     {
         try {
             $db = DB::getConnection();
-            $stm = $db->prepare("UPDATE usuarios SET username=?,password=? WHERE id=?");
-            $stm->bindParam(1, $p->username);
+            $stm = $db->prepare("UPDATE usuarios SET id_perfil=?,contrasena=? WHERE id=?");
+            $stm->bindParam(1, $p->perfil);
             $stm->bindParam(2, $p->password);
             $stm->bindParam(3, $id);
             $stm->execute();

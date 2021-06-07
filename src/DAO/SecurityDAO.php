@@ -21,16 +21,16 @@ class SecurityDAO
             $db = DB::getConnection();
             $stm = $db->prepare(
                 "SELECT 
-                       usuarios.id AS id_user,username,password,perfil.id AS id_perfil,perfil.perfil,
+                       usuarios.id AS id_user,usuario,contrasena,perfil.id AS id_perfil,perfil.perfil,
                        colaborador.id AS id_empleado,colaborador.nip,colaborador.foto,
                        personas.nombre,personas.paterno,personas.materno 
                  FROM usuarios 
                  INNER JOIN perfil ON usuarios.id_perfil=perfil.id
                  INNER JOIN colaborador ON usuarios.id_colaborador=colaborador.id
                  INNER JOIN personas ON colaborador.id_persona=personas.id 
-                 WHERE username='admin' AND password='admin' AND usuarios.estatus=1"
+                 WHERE usuario=? AND contrasena=? AND usuarios.estatus=1"
             );
-            $stm->bindParam(1, $p->usuario);
+            $stm->bindParam(1, $p->username);
             $stm->bindParam(2, $p->password);
             $stm->execute();
 

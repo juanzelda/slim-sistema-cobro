@@ -117,4 +117,22 @@ class ContribuyenteDAO
             return ["ErrorApi" => $th->getMessage()];
         }
     }
+
+    public static function findContribuyenteByNameOrId($p)
+    {
+        try {
+            $db = DB::getConnection();
+            $stm = $db->prepare(
+                "SELECT contribuyente.id,CONCAT_WS(' ',nombre,paterno,materno) AS name_contribuyente 
+                FROM contribuyente 
+                INNER JOIN personas ON contribuyente.id_persona=personas.id
+                WHERE contribuyente.id LIKE :search OR CONCAT_WS(' ',nombre,paterno,materno) LIKE :search"
+            );
+            $stm->bindValue(":search", "%" . $p->search . "%");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\Throwable $th) {
+            return ["ErrorApi" => $th->getMessage()];
+        }
+    }
 }

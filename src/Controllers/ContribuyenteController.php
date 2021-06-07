@@ -46,4 +46,9 @@ class ContribuyenteController
     {
         return $this->successResponse($res, ContribuyenteDAO::deleteContribuyente($args['id']));
     }
+
+    public function findContribuyenteByNameOrId(Request $req, Response $res, array $args)
+    {
+        return  $this->successResponse($res, ContribuyenteDAO::findContribuyenteByNameOrId((object)$req->getQueryParams()));
+    }
 }

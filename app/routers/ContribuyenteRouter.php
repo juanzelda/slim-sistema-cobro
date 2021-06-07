@@ -9,6 +9,7 @@ return function (Group $groupApi) {
 
         $group->get('', ContribuyenteController::class . ':getContribuyentes');
         $group->get('/{id:[0-9]+}', ContribuyenteController::class . ':getContribuyente');
+        $group->get('/name-or-id', ContribuyenteController::class . ':findContribuyenteByNameOrId');
         $group->post('', ContribuyenteController::class . ':createContribuyente');
         $group->put('/{id:[0-9]+}', ContribuyenteController::class . ':updateContribuyente');
         $group->delete('/{id:[0-9]+}', ContribuyenteController::class . ':deleteContribuyente');
