@@ -50,7 +50,7 @@ class ReciboDAO
         }
     }
 
-    public static function getRecibos()
+    public static function getRecibos($id)
     {
         /**SELECT recibo.folio,recibo.cajero,recibo.fecha_creacion,SUM(cargo.total),ifnull(SUM(pago.monto),0),SUM(cargo.total)-ifnull(SUM(pago.monto),0) AS total FROM recibo
 INNER JOIN cargo ON recibo.id=cargo.id_recibo
@@ -59,12 +59,17 @@ GROUP BY recibo.id */
         try {
             $db = DB::getConnection();
             $stm = $db->prepare(
-                "SELECT folio,fecha_creacion,SUM(cargo.total) AS saldo,group_concat(cargo.total),SUM(cargo.total)-IFNULL(SUM(pago.monto),0) AS saldo_pendiente FROM recibo
+                "SELECT recibo.folio,recibo.fecha_creacion,personas.nombre,personas.paterno,personas.materno,SUM(cargo.total) AS monto,
+                        IF(SUM(cargo.total)-(SELECT IFNULL(SUM(pago.monto),0) FROM pago WHERE pago.id_recibo=recibo.id)=0,1,0) AS saldado
+                 FROM recibo
                  INNER JOIN cargo ON recibo.id=cargo.id_recibo
-                 inner JOIN pago ON recibo.id=pago.id_recibo
                  INNER JOIN usuarios ON recibo.cajero=usuarios.id
-                 GROUP BY recibo.id,cargo.id,pago.id"
+                 INNER JOIN colaborador ON usuarios.id_colaborador=colaborador.id
+                 INNER JOIN personas ON colaborador.id_persona=personas.id
+                 WHERE recibo.id=4
+                 GROUP BY recibo.id"
             );
+            $stm->bindParam(1, $id);
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Throwable $th) {
