@@ -15,16 +15,20 @@ class ReciboDAO
     }
 
 
-    public static function generarRecibo($p)
+    public static function generarRecibo($cajero, $p)
     {
         try {
-            $cajero = 4; //se traera de token con el getatribute y es el id usuario en session 
-            $folio = 2; // se saca econ consulta el ultimo folio 
             $db = DB::getConnection();
             $db->beginTransaction();
+
+            $stm = $db->prepare("SELECT MAX(folio) AS folio FROM recibo");
+            $stm->execute();
+            $rst = $stm->fetch();
+            $folio = $rst->folio;
+
             $stm = $db->prepare("INSERT INTO recibo(id_contribuyente,folio,cajero) VALUES(?,?,?)");
             $stm->bindParam(1, $p->id_contribuyente);
-            $stm->bindParam(2, $folio);
+            $stm->bindValue(2, ($folio + 1));
             $stm->bindParam(3, $cajero);
             $stm->execute();
             $id_recibo = $db->lastInsertId();
@@ -52,21 +56,19 @@ class ReciboDAO
 
     public static function getRecibos($id)
     {
-        /**SELECT recibo.folio,recibo.cajero,recibo.fecha_creacion,SUM(cargo.total),ifnull(SUM(pago.monto),0),SUM(cargo.total)-ifnull(SUM(pago.monto),0) AS total FROM recibo
-INNER JOIN cargo ON recibo.id=cargo.id_recibo
-LEFT JOIN pago ON recibo.id=pago.id_recibo
-GROUP BY recibo.id */
+
         try {
             $db = DB::getConnection();
             $stm = $db->prepare(
-                "SELECT recibo.folio,recibo.fecha_creacion,personas.nombre,personas.paterno,personas.materno,SUM(cargo.total) AS monto,
+                "SELECT recibo.id,recibo.folio,recibo.fecha_creacion,personas.nombre,personas.paterno,personas.materno,SUM(cargo.total) AS monto,
                         IF(SUM(cargo.total)-(SELECT IFNULL(SUM(pago.monto),0) FROM pago WHERE pago.id_recibo=recibo.id)=0,1,0) AS saldado
                  FROM recibo
                  INNER JOIN cargo ON recibo.id=cargo.id_recibo
                  INNER JOIN usuarios ON recibo.cajero=usuarios.id
                  INNER JOIN colaborador ON usuarios.id_colaborador=colaborador.id
                  INNER JOIN personas ON colaborador.id_persona=personas.id
-                 WHERE recibo.id=4
+                 INNER JOIN contribuyente ON recibo.id_contribuyente=contribuyente.id
+                 WHERE contribuyente.id=?
                  GROUP BY recibo.id"
             );
             $stm->bindParam(1, $id);

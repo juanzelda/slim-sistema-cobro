@@ -18,6 +18,11 @@ class ConceptoDAO
         return  mb_strtoupper($data, 'utf-8');
     }
 
+    public static function Minus($data)
+    {
+        return  trim(mb_strtolower($data, 'utf-8'));
+    }
+
     public static function createConcepto($p)
     {
 
@@ -40,6 +45,19 @@ class ConceptoDAO
         try {
             $db = DB::getConnection();
             $stm = $db->prepare("SELECT id,clave,concepto,importe,estatus FROM concepto");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\Throwable $th) {
+            return ["ErrorApi" => $th->getMessage()];
+        }
+    }
+
+    public static function getConceptosByDescripcionOrClave($p)
+    {
+        try {
+            $db = DB::getConnection();
+            $stm = $db->prepare("SELECT id,clave,concepto,importe FROM concepto WHERE concepto LIKE :search OR clave LIKE :search");
+            $stm->bindValue(":search", "%" . self::Minus($p->search) . "%");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Throwable $th) {

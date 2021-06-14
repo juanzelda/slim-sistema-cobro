@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\ReciboController;
+use App\Middleware\SessionMiddleware;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 return function (Group $groupApi) {
@@ -11,5 +12,5 @@ return function (Group $groupApi) {
         $group->get('/{id:[0-9]+}/detalle', ReciboController::class . ':detalleRecibo');
         $group->post('', ReciboController::class . ':generarRecibo');
         $group->delete('/{id:[0-9]+}', ReciboController::class . ':eliminarRecibo');
-    });
+    })->add(new SessionMiddleware);
 };

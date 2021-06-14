@@ -23,7 +23,8 @@ class ReciboController
 
     public function generarRecibo(Request $req, Response $res) //inicio de sesion
     {
-        $id = ReciboDAO::generarRecibo((object)$req->getParsedBody());
+        $token = (object)$req->getAttribute('token');
+        $id = ReciboDAO::generarRecibo($token->id, (object)$req->getParsedBody());
         return $this->successResponse($res, ["id" => $id], 201);
     }
     public function getRecibos(Request $req, Response $res, array $args)

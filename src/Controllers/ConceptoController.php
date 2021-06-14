@@ -30,6 +30,11 @@ class ConceptoController
         return $this->successResponse($res, ConceptoDAO::getConceptos());
     }
 
+    public function getConceptosByDescripcionOrClave(Request $req, Response $res)
+    {
+        return $this->successResponse($res, ConceptoDAO::getConceptosByDescripcionOrClave((object)$req->getQueryParams()));
+    }
+
     public function getConceptoId(Request $req, Response $res, array $args)
     {
         return $this->successResponse($res, ConceptoDAO::getConceptoId($args['id']));
