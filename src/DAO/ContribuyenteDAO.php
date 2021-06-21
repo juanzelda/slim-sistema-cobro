@@ -49,7 +49,7 @@ class ContribuyenteDAO
         try {
             $db = DB::getConnection();
             $stm = $db->prepare(
-                "SELECT * FROM contribuyente 
+                "SELECT *, contribuyente.id as id_contribuyente FROM contribuyente 
             INNER JOIN personas ON contribuyente.id_persona=personas.id"
             );
             $stm->execute();

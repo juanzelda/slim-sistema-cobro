@@ -48,7 +48,7 @@ AppFactory::setContainer($container);
 //inicia aplicacion 
 $app = AppFactory::create();
 //se indica path de la aplicacion (ejemplo cuando esta en una subcarpeta de la raiz)
-$app->setBasePath('/mp-slim-git');
+$app->setBasePath('/slim-sistema-cobro');
 // $app->setBasePath('/slim-sistema-cobro');
 
 $callableResolver = $app->getCallableResolver();

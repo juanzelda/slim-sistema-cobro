@@ -29,6 +29,7 @@ class ColaboradorController
     public function getColaboradores(Request $req, Response $res)
     {
         return $this->successResponse($res, ColaboradorDAO::getColaboradores());
+     
     }
 
     public function getColaborador(Request $req, Response $res, array $args)

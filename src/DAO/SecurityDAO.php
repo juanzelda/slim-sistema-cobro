@@ -21,7 +21,7 @@ class SecurityDAO
             $db = DB::getConnection();
             $stm = $db->prepare(
                 "SELECT 
-                       usuarios.id AS id_user,usuario,contrasena,perfil.id AS id_perfil,perfil.perfil,
+                       usuarios.id AS id_user,perfil.id AS id_perfil,perfil.perfil,
                        colaborador.id AS id_empleado,colaborador.nip,colaborador.foto,
                        personas.nombre,personas.paterno,personas.materno 
                  FROM usuarios 
@@ -36,7 +36,7 @@ class SecurityDAO
 
             return $stm->fetch(PDO::FETCH_ASSOC);
         } catch (\Throwable $th) {
-            return ["ErrorApi" => $th->getMessage()];
+            return [];
         }
     }
 

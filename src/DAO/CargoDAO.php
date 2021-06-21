@@ -38,6 +38,7 @@ class CargoDAO
     {
         try {
             $db = DB::getConnection();
+<<<<<<< Updated upstream
             $stm = $db->prepare(
                 "SELECT 
                        cargo.id,
@@ -51,6 +52,12 @@ class CargoDAO
                 LEFT JOIN descuento ON cargo.id=descuento.id_cargo
                 WHERE cargo.id_recibo=?"
             );
+=======
+            $stm = $db->prepare("SELECT IFNULL(pago.id, 0) as id_pago, pago.monto as monto_pago,descuento.id as id_descuento,cargo.id as id_cargo,clave,concepto,precio_unitario,cantidad,total,descuento.monto FROM cargo 
+            LEFT JOIN descuento ON cargo.id=descuento.id_cargo 
+            LEFT JOIN pago ON cargo.id_recibo = pago.id_recibo
+            WHERE cargo.id_recibo=?");
+>>>>>>> Stashed changes
             $stm->bindParam(1, $id);
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_ASSOC);

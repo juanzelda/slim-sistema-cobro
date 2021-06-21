@@ -2,6 +2,7 @@
 
 use App\Controllers\ContribuyenteController;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
+use App\Middleware\SessionMiddleware;
 
 return function (Group $groupApi) {
 
@@ -13,5 +14,5 @@ return function (Group $groupApi) {
         $group->post('', ContribuyenteController::class . ':createContribuyente');
         $group->put('/{id:[0-9]+}', ContribuyenteController::class . ':updateContribuyente');
         $group->delete('/{id:[0-9]+}', ContribuyenteController::class . ':deleteContribuyente');
-    });
+    })->add(new SessionMiddleware);
 };
