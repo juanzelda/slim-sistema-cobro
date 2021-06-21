@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `cargo` (
   KEY `FK_cargo_concepto` (`id_concepto`),
   CONSTRAINT `FK_cargo_concepto` FOREIGN KEY (`id_concepto`) REFERENCES `concepto` (`id`),
   CONSTRAINT `FK_cargo_recibo` FOREIGN KEY (`id_recibo`) REFERENCES `recibo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla sistema_cobro.cargo: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
@@ -41,7 +41,13 @@ INSERT INTO `cargo` (`id`, `id_recibo`, `id_concepto`, `fecha_cargo`, `clave`, `
 	(2, 3, 4, '2021-05-16 22:27:49', 4, 'rollo plastico', 200, 1, 200, 1),
 	(3, 4, 4, '2021-05-16 22:37:50', 4, 'rollo plastico', 200, 1, 200, 1),
 	(4, 4, 5, '2021-05-16 22:37:50', 5, 'rollo aluminio', 250, 1, 250, 1),
-	(5, 4, 6, '2021-05-16 22:37:50', 6, 'vaso de plastico', 35, 2, 70, 1);
+	(5, 4, 6, '2021-05-16 22:37:50', 6, 'vaso de plastico', 35, 2, 70, 1),
+	(6, 6, 4, '2021-06-13 21:03:10', 4, 'rollo de plasticoz', 200, 1, 200, 1),
+	(7, 7, 14, '2021-06-13 21:04:33', 10, 'CEREAL CORN FLAKES', 55, 2, 110, 1),
+	(8, 8, 5, '2021-06-13 22:37:21', 5, 'rollo de aluminio', 250, 1, 250, 1),
+	(9, 8, 4, '2021-06-13 22:37:21', 4, 'rollo de plasticoz', 200, 1, 200, 1),
+	(10, 8, 23, '2021-06-13 22:37:21', 15, 'ROLLO MEDIANO DE TELA', 589.52, 1, 589.52, 1),
+	(11, 9, 23, '2021-06-14 00:59:37', 15, 'ROLLO MEDIANO DE TELA', 589.52, 1, 589.52, 1);
 /*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
 
 -- Volcando estructura para tabla sistema_cobro.colaborador
@@ -61,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `colaborador` (
   CONSTRAINT `FK_colaborador_personas` FOREIGN KEY (`id_persona`) REFERENCES `personas` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='tabla par almacenar los empleado que se relaccionan con una persona y un usuario';
 
--- Volcando datos para la tabla sistema_cobro.colaborador: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla sistema_cobro.colaborador: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `colaborador` DISABLE KEYS */;
 INSERT INTO `colaborador` (`id`, `id_persona`, `nip`, `rfc`, `puesto`, `email`, `foto`, `estatus`, `created_at`, `updated_at`) VALUES
 	(1, 5, '0001', 'ROPL890311I87', 'programador', 'ejemplo@gmail.com', 'ruta imagen', 0, '2021-05-16 15:00:12', '2021-05-16 15:14:27'),
@@ -85,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `concepto` (
   UNIQUE KEY `Índice 2` (`clave`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla sistema_cobro.concepto: ~15 rows (aproximadamente)
+-- Volcando datos para la tabla sistema_cobro.concepto: ~13 rows (aproximadamente)
 /*!40000 ALTER TABLE `concepto` DISABLE KEYS */;
 INSERT INTO `concepto` (`id`, `clave`, `concepto`, `importe`, `estatus`, `created_at`, `update_at`) VALUES
 	(1, 1, 'pago contemporaneo mod', 900.5, 0, '2020-01-01 00:00:00', '2021-05-09 17:23:34'),
@@ -122,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
 -- Volcando datos para la tabla sistema_cobro.contribuyente: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `contribuyente` DISABLE KEYS */;
 INSERT INTO `contribuyente` (`id`, `id_persona`, `email`, `telefono`, `estatus`, `created_at`, `updated_at`) VALUES
-	(1, 9, 'ejemplo@gmail.com', 'ruta imagen', 0, '2021-05-16 15:56:36', '2021-05-16 15:56:36'),
+	(1, 9, 'ejemplo@gmail.com', 'ruta imagen', 1, '2021-05-16 15:56:36', '2021-05-16 15:56:36'),
 	(2, 10, NULL, NULL, 1, '2021-05-16 19:26:35', '2021-05-16 19:26:35');
 /*!40000 ALTER TABLE `contribuyente` ENABLE KEYS */;
 
@@ -182,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `direccion` (
   CONSTRAINT `FK_direccion_personas` FOREIGN KEY (`id_persona`) REFERENCES `personas` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla sistema_cobro.direccion: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla sistema_cobro.direccion: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `direccion` DISABLE KEYS */;
 INSERT INTO `direccion` (`id`, `id_persona`, `calle`, `colonia`, `num_ext`, `num_int`, `ciudad`, `estado`, `created_at`, `updated_at`) VALUES
 	(9, 5, 'VALLE MESOREA', 'VALLE DE SAN JOSE', '206', '', 'LEON', 'GUANAJUATO', NULL, NULL),
@@ -260,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `modulo_perfil` (
   UNIQUE KEY `Índice 1` (`id_perfil`,`id_modulo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla sistema_cobro.modulo_perfil: ~9 rows (aproximadamente)
+-- Volcando datos para la tabla sistema_cobro.modulo_perfil: ~15 rows (aproximadamente)
 /*!40000 ALTER TABLE `modulo_perfil` DISABLE KEYS */;
 INSERT INTO `modulo_perfil` (`id_perfil`, `id_modulo`) VALUES
 	(3, 1),
@@ -277,7 +283,8 @@ INSERT INTO `modulo_perfil` (`id_perfil`, `id_modulo`) VALUES
 	(5, 3),
 	(5, 4),
 	(5, 5),
-	(5, 6);
+	(5, 6),
+	(7, 1);
 /*!40000 ALTER TABLE `modulo_perfil` ENABLE KEYS */;
 
 -- Volcando estructura para tabla sistema_cobro.pago
@@ -331,14 +338,14 @@ CREATE TABLE IF NOT EXISTS `personas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla sistema_cobro.personas: ~8 rows (aproximadamente)
+-- Volcando datos para la tabla sistema_cobro.personas: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
 INSERT INTO `personas` (`id`, `nombre`, `paterno`, `materno`, `genero`, `fecha_nacimiento`, `created_at`, `updated_at`) VALUES
 	(5, 'JOSE LEON', 'RODRIGUEZ', 'PIÑA', 'Masculino', '1989-03-11', '2021-05-16 15:00:12', '2021-05-16 15:00:12'),
 	(6, 'JOSE LEON', 'RODRIGUEZ', 'PIÑA', 'Masculino', '1989-03-11', '2021-05-16 15:00:39', '2021-05-16 15:00:39'),
 	(7, 'JOSE LEON', 'RODRIGUEZ', 'PIÑA', 'Masculino', NULL, '2021-05-16 15:06:35', '2021-05-16 15:11:26'),
-	(9, 'JOSE LEON', 'RODRIGUEZ', 'PIÑA', 'Masculino', NULL, '2021-05-16 15:56:36', '2021-05-16 15:59:06'),
-	(10, NULL, NULL, NULL, NULL, NULL, '2021-05-16 19:26:35', '2021-05-16 19:26:35'),
+	(9, 'JORGE ALBERTO', 'MENDEZ', 'SUAREZ', 'Masculino', NULL, '2021-05-16 15:56:36', '2021-06-13 21:06:49'),
+	(10, 'MARIA EUGENIA', 'ROBLES', 'GUIÑAGA', 'Femenino', '2001-06-13', '2021-05-16 19:26:35', '2021-06-13 21:08:34'),
 	(11, 'VICTOR HUGO', 'RODRIGUEZ', 'PIÑA', 'Masculino', '1997-05-08', '2021-05-30 19:26:16', '2021-05-30 19:26:16'),
 	(12, 'VICTOR HUGO', 'RODRIGUEZ', 'PIÑA', 'Masculino', '1997-05-08', '2021-05-30 19:27:27', '2021-05-30 19:27:27'),
 	(13, 'MARTHA ELENA', 'PISCINA', 'BARCENAS', 'Femenino', '1987-08-13', '2021-05-30 19:29:14', '2021-05-30 19:29:14');
@@ -360,13 +367,17 @@ CREATE TABLE IF NOT EXISTS `recibo` (
   KEY `FK_recibo_usuarios` (`cajero`),
   CONSTRAINT `FK_recibo_contribuyente` FOREIGN KEY (`id_contribuyente`) REFERENCES `contribuyente` (`id`),
   CONSTRAINT `FK_recibo_usuarios` FOREIGN KEY (`cajero`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla sistema_cobro.recibo: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla sistema_cobro.recibo: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `recibo` DISABLE KEYS */;
 INSERT INTO `recibo` (`id`, `id_contribuyente`, `folio`, `cajero`, `fecha_creacion`, `estatus`, `created_at`, `updated_at`) VALUES
-	(3, 1, 000000001, 4, '2021-05-16 22:27:49', 1, '2021-05-16 22:27:49', '2021-05-16 22:27:49'),
-	(4, 1, 000000002, 4, '2021-05-16 22:37:50', 1, '2021-05-16 22:37:50', '2021-05-16 22:37:50');
+	(3, 2, 000000001, 4, '2021-05-16 22:27:49', 1, '2021-05-16 22:27:49', '2021-06-13 21:21:42'),
+	(4, 2, 000000002, 4, '2021-05-16 22:37:50', 1, '2021-05-16 22:37:50', '2021-06-13 21:21:45'),
+	(6, 2, 000000003, 4, '2021-06-13 21:03:10', 1, '2021-06-13 21:03:10', '2021-06-13 21:21:48'),
+	(7, 1, 000000004, 8, '2021-06-13 21:04:33', 1, '2021-06-13 21:04:33', '2021-06-13 21:04:33'),
+	(8, 1, 000000005, 4, '2021-06-13 22:37:21', 1, '2021-06-13 22:37:21', '2021-06-13 22:37:21'),
+	(9, 2, 000000006, 4, '2021-06-14 00:59:37', 1, '2021-06-14 00:59:37', '2021-06-14 00:59:37');
 /*!40000 ALTER TABLE `recibo` ENABLE KEYS */;
 
 -- Volcando estructura para tabla sistema_cobro.usuarios
@@ -374,8 +385,8 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_colaborador` int(11) DEFAULT NULL,
   `id_perfil` int(11) DEFAULT NULL,
-  `username` varchar(50) DEFAULT NULL,
-  `password` varchar(50) DEFAULT NULL,
+  `usuario` varchar(50) DEFAULT NULL,
+  `contrasena` varchar(50) DEFAULT NULL,
   `estatus` int(11) NOT NULL DEFAULT 1,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -384,14 +395,16 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   KEY `FK_usuarios_perfil` (`id_perfil`),
   CONSTRAINT `FK_usuarios_colaborador` FOREIGN KEY (`id_colaborador`) REFERENCES `colaborador` (`id`),
   CONSTRAINT `FK_usuarios_perfil` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla sistema_cobro.usuarios: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla sistema_cobro.usuarios: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` (`id`, `id_colaborador`, `id_perfil`, `username`, `password`, `estatus`, `created_at`, `updated_at`) VALUES
+INSERT INTO `usuarios` (`id`, `id_colaborador`, `id_perfil`, `usuario`, `contrasena`, `estatus`, `created_at`, `updated_at`) VALUES
 	(4, 1, 3, 'admin', 'admin', 1, '2021-04-18 21:22:15', '2021-05-23 18:38:07'),
 	(5, 2, 5, 'admin2', 'admin2', 0, '2021-05-09 18:25:26', '2021-05-23 18:38:30'),
-	(6, 3, 4, 'perfi', 'perfi', 0, '2021-05-09 18:26:09', '2021-05-23 18:38:23');
+	(6, 3, 4, 'perfi', 'perfi', 0, '2021-05-09 18:26:09', '2021-05-23 18:38:23'),
+	(7, 5, 6, 'userabc', 'userabc', 1, '2021-06-06 00:41:26', '2021-06-06 00:41:26'),
+	(8, 6, 7, 'martha03', 'marthabrazil', 1, '2021-06-06 00:48:38', '2021-06-06 00:48:38');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla sistema_cobro.usuario_modulo

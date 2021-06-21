@@ -12,7 +12,7 @@ class CargoDAO
     {
     }
 
-    public static function addCargo($id,$p)
+    public static function addCargo($id, $p)
     {
 
         try {
@@ -38,7 +38,19 @@ class CargoDAO
     {
         try {
             $db = DB::getConnection();
-            $stm = $db->prepare("SELECT clave,concepto,precio_unitario,cantidad,total,monto FROM cargo LEFT JOIN descuento ON cargo.id=descuento.id_cargo WHERE cargo.id_recibo=?");
+            $stm = $db->prepare(
+                "SELECT 
+                       cargo.id,
+                       clave,
+                       concepto, 
+                       ROUND(precio_unitario,2) AS precio_unitario,
+                       cantidad, 
+                       ROUND(IFNULL(monto,0),2) AS descuento, 
+                       ROUND(total- IFNULL(monto,0),2) AS total
+                FROM cargo
+                LEFT JOIN descuento ON cargo.id=descuento.id_cargo
+                WHERE cargo.id_recibo=?"
+            );
             $stm->bindParam(1, $id);
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_ASSOC);

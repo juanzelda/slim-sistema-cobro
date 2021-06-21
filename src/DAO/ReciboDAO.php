@@ -60,10 +60,16 @@ class ReciboDAO
         try {
             $db = DB::getConnection();
             $stm = $db->prepare(
-                "SELECT recibo.id,recibo.folio,recibo.fecha_creacion,personas.nombre,personas.paterno,personas.materno,SUM(cargo.total) AS monto,
-                        IF(SUM(cargo.total)-(SELECT IFNULL(SUM(pago.monto),0) FROM pago WHERE pago.id_recibo=recibo.id)=0,1,0) AS saldado
+                "SELECT 
+                       recibo.id,
+                       recibo.folio,
+                       recibo.fecha_creacion,
+                       CONCAT_WS(' ',personas.nombre,personas.paterno,personas.materno) AS cajero,
+                       ROUND(SUM(cargo.total-IFNULL(descuento.monto,0)),2) AS monto,
+                       IF(ROUND(SUM(cargo.total-IFNULL(descuento.monto,0)),2)-(SELECT IFNULL(ROUND(SUM(pago.monto),2),0) FROM pago WHERE pago.id_recibo=recibo.id)=0,1,0) AS saldado
                  FROM recibo
                  INNER JOIN cargo ON recibo.id=cargo.id_recibo
+                 LEFT JOIN descuento ON cargo.id=descuento.id_cargo
                  INNER JOIN usuarios ON recibo.cajero=usuarios.id
                  INNER JOIN colaborador ON usuarios.id_colaborador=colaborador.id
                  INNER JOIN personas ON colaborador.id_persona=personas.id
